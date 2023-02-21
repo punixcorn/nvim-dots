@@ -1,0 +1,23 @@
+Layout :
+how they are sourced:
+
+init.vim
+        ├── plugins.vim
+        ├                ├── barber.vim
+        ├                ├── cmp.vim
+        ├                ├── colorschemes.vim
+        ├                ├── formatter.vim
+        ├                ├── hexokinase.vim
+        ├                ├── image_render.vim
+        ├                ├── lualine.vim
+        ├                ├── neotree.vim
+        ├                ├── plugins.tree
+        ├                ├── startup_screen.vim
+        ├                ├── syntax_highlighting.vim
+        ├                ├── taglist.vim
+        ├                ├── telescope.vim
+        ├                ├── toggle_term.vim
+        ├                ├── vgit.vim
+        ├                ├── vimtex.vim
+        ├                └── which_key.vim
+        └── settings.vim
