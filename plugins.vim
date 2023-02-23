@@ -2,12 +2,12 @@
 
 call plug#begin("~/.vim/plugged")
     "for COC nvim going back, no need for lsp
-    Plug 'neoclide/coc.nvim',{ 'branch':'release' }
+     Plug 'neoclide/coc.nvim',{ 'branch':'release' }
     " Or build from source code by using yarn: https://yarnpkg.com > if you
     " get errrors about coc -> do yarn install , comment the top one and
     " uncomment this 
     " Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
-    Plug 'rhysd/vim-clang-format'
+     Plug 'rhysd/vim-clang-format'
 
     "for color codes
       Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
@@ -15,6 +15,7 @@ call plug#begin("~/.vim/plugged")
     "for finding files
       Plug 'nvim-lua/plenary.nvim'
       Plug 'nvim-telescope/telescope.nvim',{ 'tag' : '0.1.1'}
+      Plug 'nvim-telescope/telescope-file-browser.nvim'
       Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
      "for doucment editing
@@ -104,6 +105,7 @@ source ~/.config/nvim/plugins/startup_screen.vim
 source ~/.config/nvim/plugins/syntax_highlighting.vim
 source ~/.config/nvim/plugins/taglist.vim
 source ~/.config/nvim/plugins/telescope.vim
+source ~/.config/nvim/plugins/telescope_findfile.vim
 source ~/.config/nvim/plugins/toggle_term.vim
 source ~/.config/nvim/plugins/vgit.vim
 source ~/.config/nvim/plugins/vimtex.vim
