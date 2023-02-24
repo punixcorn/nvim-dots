@@ -1,5 +1,7 @@
 " coc config
 let g:coc_global_extensions = [
+  \ 'coc-vimtex',
+  \ 'coc-lists',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-tsserver',
@@ -69,7 +71,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> td <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -87,6 +89,8 @@ endfunction
 
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+" use \sh to show showSignatureHelp
+nnoremap <silent> <leader>sh :call CocActionAsync('showSignatureHelp')<CR>
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
@@ -113,7 +117,7 @@ nmap <leader>ac  <Plug>(coc-codeaction-cursor)
 " Remap keys for apply code actions affect whole buffer
 nmap <leader>as  <Plug>(coc-codeaction-source)
 " Apply the most preferred quickfix action to fix diagnostic on the current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>fc  <Plug>(coc-fix-current)
 
 " Remap keys for applying refactor code actions
 nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)

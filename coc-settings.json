@@ -3,5 +3,23 @@
   "inlayHint.display": true,
   "inlayHint.refreshOnInsertMode": true,
   "coc.preferences.formatOnSave": true,
-  "coc-clangd.arguments": ["--inlay-hints=true"]
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "build/compile_commands.json"],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache"
+        },
+        "client": {
+          "snippetSupport": true
+        },
+        "compilationDatabaseDirectory": "build",
+        "clang": {
+          "extraArgs": ["-std=c++20"]
+        }
+      }
+    }
+  }
 }

@@ -1,5 +1,5 @@
 
-"cmp
+"cmp = LSP nvim 
 
 lua<<EOF
 local lsp = require('lsp-zero')
