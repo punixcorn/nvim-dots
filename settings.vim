@@ -1,7 +1,7 @@
 " some basic settings
 " Lazygit keybind
 nnoremap <leader>lg <CMD>LazyGit<CR>
-
+nnoremap <silent><leader>sv <CMD>:w<CR>
 " ToggleTerm
 nnoremap <C-\> <CMD>ToggleTerm<CR>
 nnoremap <leader>n <CMD>lua _nap_toggle()<CR>
@@ -66,13 +66,6 @@ set updatetime=300          "fix long update times
  nnoremap <C-k> <C-w>k
  nnoremap <C-l> <C-w>l
 
-"  Press i to enter insert mode, and ii to exit insert mode.
-:inoremap <leader>] <Esc>
-":inoremap jk <Esc>
-":inoremap kj <Esc>
-":vnoremap jk <Esc>
-":vnoremap kj <Esc>
-
 " open file in a text by placing text and gf
 nnoremap gf :vert winc f<cr>
 " copies filepath to clipboard by pressing yf
@@ -88,7 +81,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Persistent undo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set undodir=/home/potatojs/.config/nvim/undodir
+set undodir=~/.config/nvim/undodir
 set undofile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -1,5 +1,7 @@
 " coc config
 let g:coc_global_extensions = [
+  \ 'coc-eslint',
+  \ 'coc-flutter',
   \ 'coc-vimtex',
   \ 'coc-lists',
   \ 'coc-snippets',
@@ -14,6 +16,7 @@ let g:coc_global_extensions = [
   \ 'coc-cmake',
   \ 'coc-sh',
   \ 'coc-go',
+  \ 'coc-phpls',
   \ 'coc-html',
   \ 'coc-java',
   \ 'coc-sumneko-lua',

@@ -78,7 +78,7 @@ call plug#begin("~/.vim/plugged")
       Plug 'rcarriga/nvim-notify' " Notification Boxes
 
      " Tools
-      Plug 'wakatime/vim-wakatime' " Time Logging and other stuff 
+     " Plug 'wakatime/vim-wakatime' " Time Logging and other stuff 
       Plug 'manzeloth/live-server' " Live Server
       Plug 'sbdchd/neoformat' " Auto formatter
       Plug 'kdheepak/lazygit.nvim' " Lazygit
