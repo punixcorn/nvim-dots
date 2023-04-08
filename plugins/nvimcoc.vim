@@ -18,7 +18,6 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-phpls',
   \ 'coc-html',
-  \ 'coc-java',
   \ 'coc-sumneko-lua',
   \ 'coc-markdownlint',
   \ 'coc-pyright',

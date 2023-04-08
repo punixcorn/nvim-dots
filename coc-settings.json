@@ -2,5 +2,6 @@
   "inlayHint.enable": true,
   "inlayHint.display": true,
   "inlayHint.refreshOnInsertMode": true,
-  "coc.preferences.formatOnSave": true
+  "coc.preferences.formatOnSave": true,
+  "clangd.fallbackFlags": ["-std=c++2a"]
 }
