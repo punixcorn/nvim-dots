@@ -75,9 +75,9 @@ return {
 
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip" },
+					--{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
+					{ name = "luasnip" },
 					{ name = "buffer" },
 					{ name = "npm", keyword_length = 4 },
 					{ name = "crates" },
@@ -123,6 +123,7 @@ return {
 			-- These are just examples. Replace them with the language
 			-- servers you have installed in your system
 			require("lspconfig").rust_analyzer.setup({})
+			require("lspconfig").lua_ls.setup({})
 			require("lspconfig").clangd.setup({
 				capabilities = {
 					offsetEncoding = "utf-16",
