@@ -1,11 +1,6 @@
---  ╭──────────────────────────────────────────────────────────╮
---  │                    LSP CONFIGURATION                     │
---  ╰──────────────────────────────────────────────────────────╯
-
+-- Order: Lspzero -> cmp -> Mason -> lspsaga
 return {
-	--  ╭────────────────╮
-	--  │   LSP ZERO     │
-	--  ╰────────────────╯
+	-- lsp zero
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v4.x",
@@ -13,9 +8,7 @@ return {
 		config = false,
 	},
 
-	--  ╭────────────────╮
-	--  │   NVIM CMP     │
-	--  ╰────────────────╯
+	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -95,9 +88,7 @@ return {
 		end,
 	},
 
-	-- ╭───────────╮
-	-- │ LSPCONFIG │
-	-- ╰───────────╯
+	-- LSP
 	{
 		"neovim/nvim-lspconfig",
 		cmd = "LspInfo",
@@ -106,20 +97,14 @@ return {
 			{ "hrsh7th/cmp-nvim-lsp" },
 		},
 		config = function()
-			-- │ GLOBALS │
 			local lsp_zero = require("lsp-zero")
 			local lspconfig = require("lspconfig")
 
-			-- │ CMP LSP CAPABILITIES │
-			local lsp_defaults = lspconfig.util.default_config
-			lsp_defaults.capabilities =
-				vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-			-- │ LSP BORDER │
-			require("lspconfig.ui.windows").default_options.border = "single"
-
+			-- lsp_attach is where you enable features that only work
+			-- if there is a language server active in the file
 			local lsp_attach = function(client, bufnr)
 				local opts = { buffer = bufnr }
+
 				vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
 				vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
 				vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
@@ -132,143 +117,32 @@ return {
 				vim.keymap.set("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
 			end
 
-			-- │ LSP BORDERS │
-			local border = {
-				{ "┌", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "┐", "FloatBorder" },
-				{ "│", "FloatBorder" },
-				{ "┘", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "└", "FloatBorder" },
-				{ "│", "FloatBorder" },
-			}
-
-			local handlers = {
-				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-			}
-
 			lsp_zero.extend_lspconfig({
 				sign_text = true,
 				lsp_attach = lsp_attach,
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),
 			})
 
-			lsp_zero.setup_servers({ "tsserver", "lua_ls" })
-			--| C & C++ |
+			-- These are just examples. Replace them with the language
+			-- servers you have installed in your system:
+			-- 1.Put servers here, if they dont have a special config
+			lsp_zero.setup_servers({ "tsserver", "rust_analyzer", "lua_ls" })
+			-- 2.Put servers here, if they have a special config, anc configure them
 			lspconfig.clangd.setup({
 				capabilities = {
 					offsetEncoding = "utf-16",
 				},
-				handlers = handlers,
-			})
-			--| CSS |
-			lspconfig.cssls.setup({
-				handlers = handlers,
-				settings = {
-					css = {
-						lint = {
-							unknownAtRules = "ignore",
-						},
-					},
-				},
-			})
-			--| JSON |
-			lspconfig.jsonls.setup({
-				handlers = handlers,
-				filetypes = { "json", "jsonc" },
-				init_options = {
-					provideFormatter = true,
-				},
-			})
-			--| HTML |
-			lspconfig.html.setup({
-				handlers = handlers,
-				settigns = {
-					css = {
-						lint = {
-							validProperties = {},
-						},
-					},
-				},
-			})
-			--| TEXLAB |
-			lspconfig.texlab.setup({
-				handlers = handlers,
-				settings = {
-					texlab = {
-						auxDirectory = ".",
-						bibtexFormatter = "texlab",
-						build = {
-							args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-							executable = "latexmk",
-							forwardSearchAfter = false,
-							onSave = false,
-						},
-						chktex = {
-							onEdit = false,
-							onOpenAndSave = false,
-						},
-						diagnosticsDelay = 300,
-						formatterLineLength = 100,
-						forwardSearch = {
-							args = {},
-						},
-						latexFormatter = "latexindent",
-						latexindent = {
-							modifyLineBreaks = false,
-						},
-					},
-				},
-			})
-			--| JAVA |
-			lspconfig.jdtls.setup({
-				handlers = handlers,
-			})
-			--| RUST |
-			lspconfig.rust_analyzer.setup({
-				handlers = handlers,
-			})
-			-- │ YAML SERVER │
-			lspconfig.yamlls.setup({
-				handlers = handlers,
-				settings = {
-					yaml = {
-						validate = true,
-						hover = true,
-						completion = true,
-						format = {
-							enable = true,
-							singleQuote = true,
-							bracketSpacing = true,
-						},
-						editor = {
-							tabSize = 2,
-						},
-						schemaStore = {
-							enable = true,
-						},
-					},
-					editor = {
-						tabSize = 2,
-					},
-				},
-			})
-			-- │ TAILWIND SERVER │
-			lspconfig.tailwindcss.setup({
-				handlers = handlers,
 			})
 		end,
 	},
-
-	--  ╭─────────────╮
-	--  │   MASON     │
-	--  ╰─────────────╯
+	-- Mason
 	{
+
 		"williamboman/mason.nvim",
+		event = "VeryLazy",
 		dependencies = {
 			"williamboman/mason-lspconfig.nvim",
+			"whoIsSethDaniel/mason-tool-installer.nvim",
 		},
 
 		config = function()
@@ -283,7 +157,6 @@ return {
 						package_uninstalled = "✗",
 					},
 					border = "rounded",
-					height = 0.8,
 				},
 			})
 
@@ -299,11 +172,6 @@ return {
 					"clangd",
 					"tailwindcss",
 					"gopls",
-					"jdtls",
-					"ltex",
-					"texlab",
-					"intelephense",
-					"yamlls",
 				},
 				automatic_installation = true,
 			})

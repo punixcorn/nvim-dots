@@ -1,6 +1,29 @@
 return {
 	-- which key, for checking keys
-	{ "folke/which-key.nvim", lazy = true },
+	{
+		"folke/which-key.nvim",
+		lazy = true,
+		config = function()
+			local whichkey = require("which-key")
+
+			whichkey.setup({
+
+				icons = {
+					breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+					separator = "➜", -- symbol used between a key and it's label
+					group = "+", -- symbol prepended to a group
+				},
+				window = {
+					border = "single",
+					winblend = 0,
+				},
+			})
+			-- whick key
+			whichkey.register(mappings, opts)
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
+	},
 
 	-- icons
 	{ "nvim-tree/nvim-web-devicons" },
@@ -416,7 +439,52 @@ return {
 			)
 		end,
 	},
-	--- multiple cursors
+	-- diff view in nvim
+	{
+		"sindrets/diffview.nvim",
+		config = function()
+			local keymap = vim.keymap
+			keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { desc = "Open diffview" })
+			keymap.set("n", "<leader>gx", "<cmd>DiffviewClose<CR>", { desc = "Close diffview" })
+		end,
+	},
+	-- neo clip / clip board manager
+	{
+		"AckslD/nvim-neoclip.lua",
+		dependencies = {
+			{ "kkharji/sqlite.lua", module = "sqlite" },
+			-- you'll need at least one of these
+			-- {'nvim-telescope/telescope.nvim'},
+			-- {'ibhagwan/fzf-lua'},
+		},
+		config = function()
+			require("neoclip").setup()
+		end,
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup({
+				opts = {
+					-- Defaults
+					enable_close = true, -- Auto close tags
+					enable_rename = true, -- Auto rename pairs of tags
+					enable_close_on_slash = true, -- Auto close on trailing </
+				},
+				-- Also override individual filetype configs, these take priority.
+				-- Empty by default, useful if one of the "opts" global settings
+				-- doesn't work well in a specific filetype
+				per_filetype = {
+					["html"] = {
+						enable_close = false,
+					},
+				},
+			})
+		end,
+	},
+}
+
+--[[ multiple cursors
 	{
 		"jake-stewart/multicursor.nvim",
 		config = function()
@@ -437,11 +505,19 @@ return {
 				end
 			end)
 
+			vim.keymap.set("n", "jk", function()
+				if mc.hasCursors() then
+					mc.clearCursors()
+				else
+					-- default <esc> handler
+				end
+			end)
 			-- add cursors above/below the main cursor
-			vim.keymap.set("n", "<up>", function()
+			vim.keymap.set("n", "<C-K>", function()
 				mc.addCursor("k")
 			end)
-			vim.keymap.set("n", "<down>", function()
+
+			vim.keymap.set("n", "<C-J>", function()
 				mc.addCursor("j")
 			end)
 
@@ -459,4 +535,4 @@ return {
 			vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
 		end,
 	},
-}
+    --]]
