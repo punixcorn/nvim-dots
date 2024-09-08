@@ -1,7 +1,6 @@
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                    LSP CONFIGURATION                     │
 --  ╰──────────────────────────────────────────────────────────╯
-
 return {
 	--  ╭────────────────╮
 	--  │   LSP ZERO     │
@@ -21,12 +20,25 @@ return {
 		event = "InsertEnter",
 		dependencies = {
 			{ "L3MON4D3/LuaSnip" },
+			-- these are buffer completions1
+			{ "hrsh7th/cmp-nvim-lua" },
 			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+			{ "FelipeLema/cmp-async-path" },
+			{ "Snikimonkd/cmp-go-pkgs" },
+			{ "David-Kunz/cmp-npm" },
+			{ "SergioRibera/cmp-dotenv" },
+			{ "saecki/crates.nvim", tag = "stable" },
 		},
 		config = function()
 			local cmp_action = require("lsp-zero").cmp_action()
 			local cmp = require("cmp")
+			local cmp_npm = require("cmp-npm")
+			local cmp_crates = require("crates")
 
+			-- set up npm completion
+			cmp_npm.setup({})
+			cmp_crates.setup({})
+			-- set up completion
 			cmp.setup({
 				preselect = "item",
 				mapping = cmp.mapping.preset.insert({
@@ -86,10 +98,13 @@ return {
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
-					{ name = "path" },
+					{ name = "nvim_lua" },
+					{ name = "async_path" },
 					{ name = "buffer" },
 					{ name = "npm", keyword_length = 4 },
 					{ name = "crates" },
+					{ name = "go_pkgs" },
+					{ name = "dotenv" },
 				}),
 			})
 		end,

@@ -27,6 +27,28 @@ return {
 
 	-- icons
 	{ "nvim-tree/nvim-web-devicons" },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		config = function()
+			local ts_config = require("nvim-treesitter")
+			ts_config.setup({
+				ensure_installed = {
+					"lua",
+					"html",
+					"css",
+					"bash",
+					"tsx",
+					"vim",
+				},
+				highlight = {
+					enable = true,
+				},
+				autotag = {
+					enabled = true,
+				},
+			})
+		end,
+	},
 
 	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
 	{
@@ -130,6 +152,20 @@ return {
 			-- vim.cmd.colorscheme("horizon")
 		end,
 	},
+	-- colorscheme : sonokai
+	{
+		"sainnhe/sonokai",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			-- Optionally configure and load the colorscheme
+			-- directly inside the plugin declaration.
+			vim.g.sonokai_style = "espresso"
+			vim.g.sonokai_better_performance = 1
+			vim.g.sonokai_enable_italic = true
+			vim.cmd.colorscheme("sonokai")
+		end,
+	},
 	-- colorscheme : gruvbox
 	{
 		"ellisonleao/gruvbox.nvim",
@@ -163,7 +199,13 @@ return {
 		priority = 1000,
 		config = function()
 			-- vim.cmd.colorscheme("synthwave84")
-			vim.cmd.colorscheme("nightfly")
+		end,
+	},
+	-- colorscheme : Kanagawa
+	{
+		"rebelot/kanagawa.nvim",
+		config = function()
+			--vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
 
@@ -482,57 +524,40 @@ return {
 			})
 		end,
 	},
+	-- Markdown live preview
+	{
+		"OXY2DEV/markview.nvim",
+		lazy = false, -- Recommended
+		-- ft = "markdown" -- If you decide to lazy-load anyway
+
+		dependencies = {
+			-- You will not need this if you installed the
+			-- parsers manually
+			-- Or if the parsers are in your $RUNTIMEPATH
+			"nvim-treesitter/nvim-treesitter",
+			"tree-sitter/tree-sitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("markview").setup({
+				modes = { "n", "no", "c" }, -- Change these modes
+				-- to what you need
+
+				hybrid_modes = { "n" }, -- Uses this feature on
+				-- normal mode
+
+				-- This is nice to have
+				callbacks = {
+					on_enable = function(_, win)
+						vim.wo[win].conceallevel = 2
+						vim.wo[win].concealcursor = "c"
+					end,
+				},
+			})
+		end,
+	},
 }
 
 --[[ multiple cursors
-	{
 		"jake-stewart/multicursor.nvim",
-		config = function()
-			local mc = require("multicursor-nvim")
-
-			mc.setup()
-
-			-- use MultiCursorCursor and MultiCursorVisual to customize
-			-- additional cursors appearance
-			vim.cmd.hi("link", "MultiCursorCursor", "Cursor")
-			vim.cmd.hi("link", "MultiCursorVisual", "Visual")
-
-			vim.keymap.set("n", "<esc>", function()
-				if mc.hasCursors() then
-					mc.clearCursors()
-				else
-					-- default <esc> handler
-				end
-			end)
-
-			vim.keymap.set("n", "jk", function()
-				if mc.hasCursors() then
-					mc.clearCursors()
-				else
-					-- default <esc> handler
-				end
-			end)
-			-- add cursors above/below the main cursor
-			vim.keymap.set("n", "<C-K>", function()
-				mc.addCursor("k")
-			end)
-
-			vim.keymap.set("n", "<C-J>", function()
-				mc.addCursor("j")
-			end)
-
-			-- add a cursor and jump to the next word under cursor
-			vim.keymap.set("n", "<c-n>", function()
-				mc.addCursor("*")
-			end)
-
-			-- jump to the next word under cursor but do not add a cursor
-			vim.keymap.set("n", "<c-s>", function()
-				mc.skipCursor("*")
-			end)
-
-			-- add and remove cursors with control + left click
-			vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
-		end,
-	},
-    --]]
+--]]
