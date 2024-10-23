@@ -170,7 +170,9 @@ return {
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),
 			})
 
-			lsp_zero.setup_servers({ "tsserver", "lua_ls" })
+			lsp_zero.setup_servers({ "ts_ls", "lua_ls" })
+			-- | typescript |
+
 			--| C & C++ |
 			lspconfig.clangd.setup({
 				capabilities = {
@@ -307,7 +309,7 @@ return {
 					"lua_ls",
 					"pyright",
 					"marksman",
-					"tsserver",
+					"ts_ls",
 					"eslint",
 					"html",
 					"bashls",

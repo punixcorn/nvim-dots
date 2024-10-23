@@ -17,13 +17,14 @@ return {
 				css = { "prettier" },
 				json = { "prettier" },
 				jsonc = { "prettier" },
+				go = { "goimports", "gofmt" },
 				sh = { "beautysh" },
 			},
 
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			},
 			keymap.set({ "n", "v" }, "<leader>mp", function()
 				conform.format({
