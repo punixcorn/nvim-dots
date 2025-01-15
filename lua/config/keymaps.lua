@@ -11,6 +11,7 @@ keymap.set("n", "<Left>", ":echo 'use h twat'<CR>")
 keymap.set("n", "<Right>", ":echo 'use l twat'<CR>")
 keymap.set("n", "<Up>", ":echo 'use k twat'<CR>")
 keymap.set("n", "<Down>", ":echo 'use j twat'<CR>")
+keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true, silent = true })
 
 -- some line movement
 keymap.set("n", "H", "^")

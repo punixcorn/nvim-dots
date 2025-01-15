@@ -276,6 +276,26 @@ return {
 			lspconfig.tailwindcss.setup({
 				handlers = handlers,
 			})
+
+			lspconfig.arduino_language_server.setup({
+				--	on_attach = on_attach,
+				--	capabilities = capabilities,
+				handlers = handlers,
+				-- init_options = {
+				-- 	timeout = 10000, -- increase timeout to 10 seconds
+				-- },
+				cmd = {
+					"/home/potato/go/bin/arduino-language-server",
+					"-cli-config",
+					"/home/potato/.arduino15/arduino-cli.yaml",
+					"-fqbn",
+					"arduino:avr:uno",
+					"-cli",
+					"/home/potato/.local/bin/arduino-cli",
+					"-clangd",
+					"/usr/bin/clangd",
+				},
+			})
 		end,
 	},
 
